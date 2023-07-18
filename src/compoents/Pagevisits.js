@@ -1,8 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Table } from 'flowbite-react';
+import { db } from '../firebase';
 export default function Pagevisits() {
+    const [pageVisits, setPageVisits] = useState([]);
+
+    useEffect(() => {
+        const unsubscribe = db.collection('pages').onSnapshot((snapshot) => {
+            const data = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                visitors: doc.data().visitors,
+            }));
+            setPageVisits(data);
+        });
+
+        return () => unsubscribe();
+    }, []);
     return (
-        <div className=' p-3 flex flex-col mb-4 '>
+        <div className=' p-3 flex flex-col mb-4'>
             <div className='flex justify-between items-center'>
                 <div>
                     <p className='text-[18px] font-bold text-[#2D3748]'>Page visits</p>
@@ -14,7 +28,9 @@ export default function Pagevisits() {
             {/* border */}
             <div className='mt-4 mb-3 border-b border-[#E2E8F0] w-full'> </div>
             {/* table */}
-            <Table >
+
+            {/* table */}
+            <Table striped>
                 <Table.Head>
                     <Table.HeadCell className='text-[#A0AEC0] text-[10px] font-bold'>
                         PAGE NAME
@@ -22,80 +38,25 @@ export default function Pagevisits() {
                     <Table.HeadCell className='text-[#A0AEC0] text-[10px] font-bold'>
                         VISITORS
                     </Table.HeadCell>
-                    <Table.HeadCell className='hidden md:inline text-[#A0AEC0] text-[10px] font-bold'>
+                    <Table.HeadCell className=' text-[#A0AEC0] text-[10px] font-bold'>
                         UNIQUE USERS
                     </Table.HeadCell>
-                    <Table.HeadCell className='hidden md:inline text-[#A0AEC0] text-[10px] font-bold'>
+                    <Table.HeadCell className='text-[#A0AEC0] text-[10px] font-bold'>
                         BOUNCE RATE
                     </Table.HeadCell>
-
                 </Table.Head>
-                <Table.Body className="divide-y">
-                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                        <Table.Cell className="whitespace-nowrap font-medium text-gray-500 dark:text-white">
-                            /
-                        </Table.Cell>
-                        <Table.Cell>
-                            3
-                        </Table.Cell>
-                        <Table.Cell className='hidden md:inline'>
-                            4
-                        </Table.Cell>
-                        <Table.Cell className='hidden md:inline'>
-                            9
-                        </Table.Cell>
-
-                    </Table.Row>
-                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                        <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                            <p>
-                                /register
-                            </p>
-                        </Table.Cell>
-                        <Table.Cell>
-                            3
-                        </Table.Cell>
-                        <Table.Cell className='hidden md:inline'>
-                            33
-                        </Table.Cell>
-                        <Table.Cell className='hidden md:inline'>
-                            2
-                        </Table.Cell>
-
-                    </Table.Row>
-                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                        <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                            /login
-                        </Table.Cell>
-                        <Table.Cell>
-                            3
-                        </Table.Cell>
-                        <Table.Cell className='hidden md:inline' >
-                            3
-                        </Table.Cell>
-                        <Table.Cell className='hidden md:inline'>
-                            3
-                        </Table.Cell>
-
-                    </Table.Row>
-                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                        <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                            <p>
-                                /Dashboard
-                            </p>
-                        </Table.Cell>
-                        <Table.Cell>
-                            3
-                        </Table.Cell>
-                        <Table.Cell className='hidden md:inline'>
-                            1
-                        </Table.Cell>
-                        <Table.Cell className='hidden md:inline'>
-                            9
-                        </Table.Cell>
-
-                    </Table.Row>
-
+                <Table.Body className='divide-y'>
+                    {pageVisits.map((page) => (
+                        <Table.Row key={page.id} className='bg-white dark:border-gray-700 dark:bg-gray-800'>
+                            <Table.Cell className='whitespace-nowrap font-medium text-gray-500 dark:text-white'>
+                                {page.id}
+                            </Table.Cell>
+                            <Table.Cell>{page.visitors}</Table.Cell>
+                            {/* Add other table cells for UNIQUE USERS and BOUNCE RATE */}
+                            <Table.Cell>...</Table.Cell>
+                            <Table.Cell>...</Table.Cell>
+                        </Table.Row>
+                    ))}
                 </Table.Body>
             </Table>
 

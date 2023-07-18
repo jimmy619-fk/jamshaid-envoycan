@@ -11,7 +11,7 @@ export default function Register() {
             {/* Green Mask of sign in */}
             <img src="reggreen.png" alt="" className=' h-[40vh] md:h-auto  absolute top-0 p-3 rounded-3xl' />
 
-            <div className=' flex flex-col gap-y-2 lg:gap-y-4 absolute top-[80px] lg:top-[120px] justify-center items-center w-full'>
+            <div className='mt-5 md:mt-0 flex flex-col gap-y-2 lg:gap-y-4 absolute top-[80px] lg:top-[120px] justify-center items-center w-full'>
                 <p className='text-[14px] lg:text-[32px] font-bold text-white'>Welcome!</p>
                 <p className='text-center text-white font-normal text-[10px] lg:text-[14px] mt-[6px] lg:mt-[14px]'>Use these awesome forms to login or create new
                     <br /> account in your project for free.

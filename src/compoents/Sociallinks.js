@@ -5,7 +5,11 @@ import firebase from 'firebase/compat/app'; // Import the main firebase module
 import 'firebase/compat/auth'; // Import the individual modules
 import 'firebase/compat/firestore';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 export default function Sociallinks({ register }) {
+
+
+    const navigate = useNavigate()
     const gradientStyle = {
         background: 'linear-gradient(41deg, #313860 0%, #151928 100%)',
         backgroundClip: 'text',
@@ -21,7 +25,9 @@ export default function Sociallinks({ register }) {
                 // Use Firebase Google Sign-In popup
                 const googleProvider = new firebase.auth.GoogleAuthProvider();
                 await auth.signInWithPopup(googleProvider);
-                toast.success(`Congrats, Account registered using Gmail.`);
+                toast.success(`Congrats, Account login using Gmail.`);
+                navigate('/Dashbaord')
+
             } else {
                 toast.error(`Currently you can only use Gmail .`);
             }

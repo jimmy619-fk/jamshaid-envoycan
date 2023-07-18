@@ -18,7 +18,7 @@ export default function Navbar() {
         <div className='absolute flex z-[10] mt-[30px] 3xl:mt-[68px]'>
             <div className='flex gap-y-3 flex-col md:flex-row  justify-center items-center w-[100vw]'>
                 {/* center links */}
-                <div className='flex  gap-x-[20px] md:gap-x-[29px] '>
+                <div className='flex flex-wrap gap-x-2 sm:gap-x-[20px] md:gap-x-[29px] '>
                     {/* Dashboard link */}
                     <div onClick={verifyUser} className='cursor-pointer flex  gap-x-2 justify-center items-center'>
                         <div className='flex justify-center items-center'>
@@ -58,7 +58,7 @@ export default function Navbar() {
 
                 </div>
                 {/* sign up button */}
-                <div className='relative md:left-[80px] 3xl:left-[130px]'>
+                <div className=' relative md:left-[80px] 3xl:left-[130px]'>
                     <Link to="/register">
                         <button className='px-10 py-1 rounded-lg bg-white text-[#2D3748] font-bold '>
                             Sign Up
